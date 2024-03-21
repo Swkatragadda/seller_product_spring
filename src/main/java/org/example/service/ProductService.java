@@ -14,7 +14,7 @@ import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import static jdk.javadoc.internal.doclets.formats.html.markup.HtmlStyle.title;
+//import static jdk.javadoc.internal.doclets.formats.html.markup.HtmlStyle.title;
 
 @Service
 public class ProductService {
@@ -28,13 +28,14 @@ public class ProductService {
         this.sellerRepo=sellerRepo;
     }
     public List<Product> getAllProducts(){
-        Main.log.info("Getting List of Products:" + productRepo);
+        Main.log.info("Getting List of Products: " + productRepo);
         return productRepo.findAll();
     }
   public Product saveProduct(long productId,Product p) throws ProductNotFoundException {
         Optional<Seller> optional = sellerRepo.findById(productId);
         Seller s;
         if (optional.isEmpty()) {
+            Main.log.info("No such seller found when using product Id: "+ productId);
             throw new ProductNotFoundException("No such seller");
         } else {
             s = optional.get();
@@ -55,6 +56,7 @@ public class ProductService {
         if (sellerRepo.existsBySellerName(p.getSellerName())) {
             return productRepo.save(p);
         }
+        Main.log.info("Seller with the name: " + p.getSellerName() + " does not exist.");
         throw new Exception("Seller does not exist");
     }
 
@@ -64,9 +66,10 @@ public class ProductService {
     public Product getProductById(long productId) throws ProductNotFoundException {
             Optional<Product>op = productRepo.findById(productId);
             if (op.isPresent()) {
-                Main.log.info("Product found"+ op);
+                Main.log.info("Product found "+ op);
                 return op.get();
             } else {
+                Main.log.info("No product found using product Id: "+ productId);
                 throw new ProductNotFoundException("no such product...");
             }
         }

@@ -19,7 +19,7 @@ public class SellerService {
     }
 
     public List<Seller> getAllSellers() {
-    Main.log.info("Getting list of all sellers" + sellerRepo);
+    Main.log.info("Getting list of all sellers " + sellerRepo);
         return sellerRepo.findAll();
     }
 
@@ -31,7 +31,9 @@ public class SellerService {
 
     //Method to check if a seller with given name exists in the sellerlist
     public boolean doesSellerExist(String sellerName) {
-        Main.log.info("checking if sellername exists in list" + sellerName);
+        if(sellerName.isEmpty()){
+            Main.log.info("Could not find a seller with the name: "+ sellerName);
+        }
         return sellerRepo.existsBySellerName(sellerName);
 
     }
