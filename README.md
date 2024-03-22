@@ -11,7 +11,7 @@ This Project is a back end of a webapplication built using spring framwork for s
 Java,Spring boot,H2,PostMan,HTTP
 
 #Collaberators
-Swathi Katragadda
+Swathi Katragadda,
 Benny Tavarez
 
 #Instructions to run 
